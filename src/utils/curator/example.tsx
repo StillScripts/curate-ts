@@ -1,6 +1,7 @@
 // Building an example that would work for Textured Art by Kylie
 
-import type { Field, Question } from "../../types/core";
+import { AcademicCapIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
+import type { Field, Question, Quiz } from "../../types/core";
 
 const firstName = {
   element: "input",
@@ -30,30 +31,40 @@ const phone = {
   props: { placeholder: "Your phone", type: "tel", required: false },
 } satisfies Field;
 
-const base: Question = {
+export const base = {
   type: "field",
   question: "Please enter your contact details",
   input: [firstName, lastName, email, phone],
-};
+} satisfies Question;
 
-const question1: Question = {
-  type: "image",
+export const question1 = {
+  key: "interest",
+  type: "icon",
   question: "What are you interested in?",
   input: [
     {
       label: "Learn More About Me",
       key: "learn-more",
-      image: { src: "/favicon.ico", alt: "Learn more" },
+      icon: (
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-900 text-white">
+          <AcademicCapIcon className="h-8 w-8" aria-hidden="true" />
+        </div>
+      ),
     },
     {
       label: "Request A Custom Art Piece",
       key: "custom-art",
-      image: { src: "/favicon.ico", alt: "Custom art" },
+      icon: (
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-900 text-white">
+          <PaintBrushIcon className="h-8 w-8" aria-hidden="true" />
+        </div>
+      ),
     },
   ],
-};
+} satisfies Question;
 
-const question2: Question = {
+export const question2 = {
+  key: "design",
   type: "image",
   question: "What design do you like best?",
   input: [
@@ -66,9 +77,10 @@ const question2: Question = {
       image: { src: "/favicon.ico", alt: "Custom art" },
     },
   ],
-};
+} satisfies Question;
 
-const question3: Question = {
+export const question3 = {
+  key: "colours",
   type: "image",
   question: "What colours do you like best?",
   input: [
@@ -81,18 +93,12 @@ const question3: Question = {
       image: { src: "/favicon.ico", alt: "Custom art" },
     },
   ],
-};
+} satisfies Question;
 
-export const quiz = {
+export const quiz: Quiz = {
   opener: question1,
-  learnMore: {
-    title: "Simple learn more request",
-    description: "User who wants to learn more.",
-    questions: [base],
-  },
-  customArt: {
-    title: "Custom art request",
-    description: "User who wants order a custom art piece.",
-    questions: [question2, question3, base],
+  paths: {
+    "custom-art": [question2, question3, base],
+    "learn-more": [base],
   },
 };

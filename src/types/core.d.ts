@@ -48,13 +48,20 @@ export interface QForm extends QCommon {
 }
 
 export interface QImage extends QCommon {
+  key: string;
   type: "image";
   input: ImageOption[];
 }
 
 export interface QIcon extends QCommon {
+  key: string;
   type: "icon";
   input: IconOption[];
 }
 
 export type Question = QForm | QImage | QIcon;
+
+export type Quiz = {
+  opener: Question;
+  paths: Record<string, Question[]>;
+};
