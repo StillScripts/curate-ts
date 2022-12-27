@@ -19,16 +19,19 @@ const Question: React.FC<QuestionProps> = ({ q }) => {
 
 
 
-  const disabled = q.type === "field" ? false : !!userInput[q.key]
+  const disabled = q.type === "field" ? false : !userInput[q.key]
 
   return (
     <div>
       <h3 className="text-center text-2xl font-bold">{q.question}</h3>
-      <form>
-        {q.type === "image" && <ImageOptions options={q.input} key={q.key} />}
-        {q.type === "icon" && <IconOptions options={q.input} key={q.key} />}
+      <form onSubmit={(e)=>{
+        e.preventDefault();
+        dispatch({type:"next"})
+      }}>
+        {q.type === "image" && <ImageOptions options={q.input} questionKey={q.key} />}
+        {q.type === "icon" && <IconOptions options={q.input} questionKey={q.key} />}
         {q.type === "field" && <Form fields={q.input} />}
-        <div className="mt-5 flex w-full items-center justify-between border-t border-white border-opacity-10 py-4">
+        <div className="mt-5 flex w-full items-center justify-between border-t border-white border-opacity-10 pt-3">
           {index > 0 ? (
             <button
               type="button"
@@ -43,7 +46,7 @@ const Question: React.FC<QuestionProps> = ({ q }) => {
             <div></div>
           )}
           <button
-            type="button"
+            type="submit"
             disabled={disabled}
             className={classNames(
               "inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700",

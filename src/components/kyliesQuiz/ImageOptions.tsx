@@ -4,16 +4,19 @@ import { useQuiz } from "./app/QuizContext";
 
 interface ImageOptionsProps {
   options: ImageOption[];
-  key: string;
+  questionKey: string;
 }
-const ImageOptions: React.FC<ImageOptionsProps> = ({ options, key }) => {
+const ImageOptions: React.FC<ImageOptionsProps> = ({
+  options,
+  questionKey,
+}) => {
   const { dispatch } = useQuiz();
 
   const handleClick = (value: string) => {
     dispatch &&
       dispatch({
         type: "handleInput",
-        payload: { [key]: value },
+        payload: { [questionKey]: value },
       });
   };
 

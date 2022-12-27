@@ -5,23 +5,23 @@ import { useQuiz } from "./app/QuizContext";
 
 interface IconOptionsProps {
   options: IconOption[];
-  key: string;
+  questionKey: string;
 }
 
-const IconOptions: React.FC<IconOptionsProps> = ({ options, key }) => {
+const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
   const { dispatch, q, userInput } = useQuiz();
 
   const handleClick = (value: string) => {
     dispatch &&
       dispatch({
         type: "handleInput",
-        payload: { [key]: value },
+        payload: { [questionKey]: value },
       });
   };
 
   return (
     <RadioGroup
-      value={userInput ? userInput[key] : null}
+      value={userInput ? userInput[questionKey] : null}
       onChange={handleClick}
       className="mt-5"
     >
@@ -35,10 +35,8 @@ const IconOptions: React.FC<IconOptionsProps> = ({ options, key }) => {
               classNames(
                 "cursor-pointer focus:outline-none",
                 active ? "ring-2 ring-indigo-500" : "",
-                checked
-                  ? "border-white bg-opacity-10" 
-                  : "",
-                "flex flex-col shadow-sm items-center rounded border-2 border-transparent p-2 bg-white bg-opacity-5 hover:bg-opacity-10"
+                checked ? "border-white bg-opacity-20" : "",
+                "flex flex-col items-center rounded border-2 border-transparent bg-white bg-opacity-5 p-2 shadow-sm hover:bg-opacity-20"
               )
             }
           >

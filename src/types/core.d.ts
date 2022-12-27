@@ -62,6 +62,6 @@ export interface QIcon extends QCommon {
 export type Question = QForm | QImage | QIcon;
 
 export type Quiz = {
-  opener: Question;
+  opener:  QImage | QIcon;
   paths: Record<string, Question[]>;
 };
