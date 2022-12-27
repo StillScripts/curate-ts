@@ -26,7 +26,7 @@ const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
       className="mt-5"
     >
       <RadioGroup.Label className="sr-only">{q?.question}</RadioGroup.Label>
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {options.map((opt) => (
           <RadioGroup.Option
             key={opt.key}

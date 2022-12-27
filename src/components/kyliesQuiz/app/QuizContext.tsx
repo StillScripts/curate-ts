@@ -6,18 +6,16 @@ import { quiz } from "../../../utils/curator/example";
 
 export interface QuizState {
   index: number;
-  path: string | null;
   q: Question;
   quiz: Quiz;
   userInput: Record<string, string | number>;
-  activeValues: Record<string, string | number>;
 }
 
 export type QuizAction =
-  | { type: "start"; payload: string }
-  | { type: "back" }
-  | { type: "next" }
-  | { type: "handleInput"; payload: Record<string, string | number> };
+  | { type: "back" } // Go back to previous question
+  | { type: "next" } // Go to next question
+  | { type: "submit" } // Send the userInput data to the server
+  | { type: "handleInput"; payload: Record<string, string | number> }; // Update userInput
 
 export interface ProviderValues extends QuizState {
   dispatch: Dispatch<QuizAction>;
@@ -26,38 +24,35 @@ export interface ProviderValues extends QuizState {
 const QuizContext = createContext<ProviderValues | undefined>(undefined);
 
 function reducer(state: QuizState, action: QuizAction): QuizState {
+  const path = state.userInput[quiz.opener.key];
+  const questions = path ? state.quiz.paths[path] : undefined;
   switch (action.type) {
-    case "start":
-      return {
-        ...state,
-        path: action.payload,
-      };
     case "back":
-			if (state.index === 0) {
-				alert("Can't go back")
-				return state
-			}
-			if (state.index === 1) {
-				return { ...state, q: state.quiz.opener, index: state.index - 1 }
-			}
-      return { ...state, index: state.index - 1 };
-    case "next":
-      const path = state.userInput[quiz.opener.key];
-      if (!path) {
-        alert("Error, no path selected");
+      if (state.index === 0) {
+        console.log("Error, cannot go back.");
         return state;
       }
-      const questions = state.quiz.paths[path];
+      if (state.index === 1) {
+        return { ...state, q: state.quiz.opener, index: 0 };
+      }
       if (!questions) {
-        alert("Error, no path selected");
+        alert("Error, no questions on this path.");
         return state;
       }
-
-      const currentIndex = state.index;
       return {
         ...state,
-        q: questions[currentIndex] as Question,
-        index: currentIndex + 1,
+        q: questions[state.index - 2] as Question,
+        index: state.index - 1,
+      };
+    case "next":
+      if (!questions) {
+        alert("Error, no questions on this path.");
+        return state;
+      }
+      return {
+        ...state,
+        q: questions[state.index] as Question,
+        index: state.index + 1,
       };
     case "handleInput":
       return {
@@ -85,9 +80,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({
     q: quiz.opener,
     quiz: quiz,
     userInput: {},
-    activeValues: {},
     index: 0,
-    path: null,
   });
 
   return (

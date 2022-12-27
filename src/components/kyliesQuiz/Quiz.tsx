@@ -1,36 +1,40 @@
-import type { Question as QuestionType } from "../../types/core";
 import { useQuiz } from "./app/QuizContext";
 import ImageOptions from "./ImageOptions";
 import IconOptions from "./IconOptions";
 import Form from "./FormFields";
 import { classNames } from "../../utils/common";
 
-interface QuestionProps {
-  q?: QuestionType;
-}
-
-const Question: React.FC<QuestionProps> = ({ q }) => {
+const Question = ({
+  className = "flex max-w-lg flex-col rounded-xl bg-white/10 p-4 text-white",
+}) => {
   const quiz = useQuiz();
-  if (!q || !quiz) {
+  if (!quiz) {
     return null;
   }
 
-  const { dispatch, index, userInput } = quiz;
+  const { dispatch, q, index, userInput } = quiz;
 
-
-
-  const disabled = q.type === "field" ? false : !userInput[q.key]
+  const disabled = q.type === "field" ? false : !userInput[q.key];
 
   return (
-    <div>
+    <div className={className}>
       <h3 className="text-center text-2xl font-bold">{q.question}</h3>
-      <form onSubmit={(e)=>{
-        e.preventDefault();
-        dispatch({type:"next"})
-      }}>
-        {q.type === "image" && <ImageOptions options={q.input} questionKey={q.key} />}
-        {q.type === "icon" && <IconOptions options={q.input} questionKey={q.key} />}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch({ type: "next" });
+        }}
+      >
+        {/** Answer options */}
+        {q.type === "image" && (
+          <ImageOptions options={q.input} questionKey={q.key} />
+        )}
+        {q.type === "icon" && (
+          <IconOptions options={q.input} questionKey={q.key} />
+        )}
         {q.type === "field" && <Form fields={q.input} />}
+
+        {/** Back and Next buttons */}
         <div className="mt-5 flex w-full items-center justify-between border-t border-white border-opacity-10 pt-3">
           {index > 0 ? (
             <button
@@ -61,22 +65,4 @@ const Question: React.FC<QuestionProps> = ({ q }) => {
   );
 };
 
-const Quiz = ({
-  className = "flex max-w-lg flex-col rounded-xl bg-white/10 p-4 text-white",
-}) => {
-  const quiz = useQuiz();
-
-  if (!quiz) {
-    return null;
-  }
-
-  return (
-    <div className={className}>
-      <Question q={quiz.q} />
-      {/* <p>{all.index}</p>
-      <p>{all.path}</p> */}
-    </div>
-  );
-};
-
-export default Quiz;
+export default Question;
