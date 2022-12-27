@@ -1,7 +1,9 @@
 // Building an example that would work for Textured Art by Kylie
 
 import { AcademicCapIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
-import type { Field, Question, Quiz } from "../../types/core";
+import type { Field, QIcon, QImage, Question, Quiz } from "../../types/core";
+
+type PathKeys = "custom-art" | "learn-more";
 
 const firstName = {
   element: "input",
@@ -37,7 +39,7 @@ export const base = {
   input: [firstName, lastName, email, phone],
 } satisfies Question;
 
-export const question1 = {
+export const question1: QIcon = {
   key: "interest",
   type: "icon",
   question: "What are you interested in?",

@@ -67,6 +67,22 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
   }
 }
 
+const validateQuiz = (quiz: Quiz) => {
+  const openerKeys = quiz.opener.input.map((opt) => opt.key);
+  const pathKeys = Object.keys(quiz.paths);
+  openerKeys.forEach((key) => {
+    if (!pathKeys.includes(key)) {
+      alert(`Missing a path for the following option: ${key}`);
+    }
+  });
+  pathKeys.forEach((key) => {
+    if (!openerKeys.includes(key)) {
+      alert(`There are no options for the following path: ${key}`);
+    }
+  });
+  return quiz;
+};
+
 interface QuizProviderProps {
   children: React.ReactNode;
   quiz: Quiz;
@@ -78,7 +94,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     q: quiz.opener,
-    quiz: quiz,
+    quiz: validateQuiz(quiz),
     userInput: {},
     index: 0,
   });
