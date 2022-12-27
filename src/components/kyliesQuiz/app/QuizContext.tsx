@@ -7,7 +7,7 @@ import { quiz } from "../../../utils/curator/example";
 export interface QuizState {
   index: number;
   q: Question;
-  quiz: Quiz;
+  quiz: Quiz<string>;
   userInput: Record<string, string | number>;
 }
 
@@ -67,7 +67,7 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
   }
 }
 
-const validateQuiz = (quiz: Quiz) => {
+const validateQuiz = (quiz: Quiz<string>) => {
   const openerKeys = quiz.opener.input.map((opt) => opt.key);
   const pathKeys = Object.keys(quiz.paths);
   openerKeys.forEach((key) => {
@@ -85,7 +85,7 @@ const validateQuiz = (quiz: Quiz) => {
 
 interface QuizProviderProps {
   children: React.ReactNode;
-  quiz: Quiz;
+  quiz: Quiz<string>;
 }
 
 export const QuizProvider: React.FC<QuizProviderProps> = ({

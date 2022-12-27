@@ -12,9 +12,9 @@ type SelectPropsReact = DetailedHTMLProps<
   HTMLSelectElement
 >;
 
-export interface Opt {
+export interface Opt<T = string> {
   label?: string;
-  key: string;
+  key: T;
 }
 
 export interface Input extends Opt {
@@ -29,11 +29,11 @@ export interface Select extends Opt {
 
 export type Field = Input | Select;
 
-export interface ImageOption extends Opt {
+export interface ImageOption<T> extends Opt<T> {
   image: ImageProps;
 }
 
-export interface IconOption extends Opt {
+export interface IconOption<T> extends Opt<T> {
   icon: JSX.Element;
 }
 
@@ -43,25 +43,30 @@ export interface QCommon {
 }
 
 export interface QForm extends QCommon {
-  type: "field";
+  type: "form";
   input: Field[];
 }
 
-export interface QImage extends QCommon {
+export interface QImage<T = string> extends QCommon {
   key: string;
   type: "image";
-  input: ImageOption[];
+  input: ImageOption<T>[];
 }
 
-export interface QIcon extends QCommon {
+export interface QIcon<T = string> extends QCommon {
   key: string;
   type: "icon";
-  input: IconOption[];
+  input: IconOption<T>[];
 }
 
 export type Question = QForm | QImage | QIcon;
 
-export type Quiz = {
-  opener:  QImage | QIcon;
-  paths: Record<string, Question[]>;
+/**
+ * The Quiz has an opener which will either be an Image or Icon question,
+ * and then it has question paths based on the initial question. 
+ * The generic (T) is the key that is used for the quiz
+ */
+export type Quiz<T> = {
+  opener: QImage<T> | QIcon<T>; 
+  paths: Record<T, Question[]>;
 };
