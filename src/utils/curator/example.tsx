@@ -6,14 +6,14 @@ import type { Field, Question, Quiz } from "../../types/core";
 const firstName = {
   element: "input",
   label: "First Name",
-  key: "first",
+  key: "firstName",
   props: { placeholder: "Your first name", type: "text", required: true },
 } satisfies Field;
 
 const lastName = {
   element: "input",
   label: "Last Name",
-  key: "last",
+  key: "lastName",
   props: { placeholder: "Your last name", type: "text", required: true },
 } satisfies Field;
 

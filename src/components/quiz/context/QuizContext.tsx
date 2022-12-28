@@ -71,6 +71,9 @@ const reducer = (state: QuizState, action: QuizAction): QuizState => {
         q: questions[state.index] as Question,
         index: state.index + 1,
       };
+    case "submit":
+      alert(JSON.stringify(state.userInput));
+      return state;
     case "handleInput":
       return {
         ...state,

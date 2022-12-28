@@ -1,7 +1,6 @@
 import { useQuiz } from "../context/QuizContext";
-import FormFields from "../options/FormFields";
-import IconOptions from "../options/IconOptions";
-import ImageOptions from "../options/ImageOptions";
+import FormFields from "../inputs/FormFields";
+import RadioOptions from "../inputs/RadioOptions";
 
 /** The input options for a given question */
 const Options = () => {
@@ -23,18 +22,18 @@ const Options = () => {
 
   switch (q.type) {
     case "form":
-      return <FormFields fields={q.input} />;
+      return <FormFields q={q} />;
     case "icon":
       return (
-        <IconOptions
-          options={q.input}
+        <RadioOptions
+          q={q}
           handleClick={(value) => handleClick(q.key, value, q.oneClick)}
         />
       );
     case "image":
       return (
-        <ImageOptions
-          options={q.input}
+        <RadioOptions
+          q={q}
           handleClick={(value) => handleClick(q.key, value, q.oneClick)}
         />
       );

@@ -1,18 +1,17 @@
-import type { Field as FieldType } from "../../../types/core";
+import type { QForm } from "../../../types/core";
 import { classNames } from "../../../utils/common";
-import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
+import { DEFAULT_GRID } from "../context/QuizContext";
 import { Field } from 'react-final-form'
 
 interface FormFieldsProps {
-  fields: FieldType[];
+  q: QForm
 }
 
-const FormFields: React.FC<FormFieldsProps> = ({ fields }) => {
-  const { q } = useQuiz();
+const FormFields: React.FC<FormFieldsProps> = ({ q }) => {
   return (
     <div className="mt-5">
       <div className={classNames("grid", q.gridClasses || DEFAULT_GRID)}>
-        {fields.map((opt) =>
+        {q.input.map((opt) =>
           opt.element === "input" ? (
             <div className="mt-2" key={opt.key}>
               <label

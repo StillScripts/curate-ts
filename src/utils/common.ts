@@ -37,3 +37,18 @@ export function truncateText(original: string, limit: number): string {
 export const getKeys = Object.keys as <T extends object>(
   obj: T
 ) => Array<keyof T>;
+
+/** Convert firstName => First Name */
+export function camelSplit(text: string) {
+  let converted = "";
+  for (let i = 0; i < text.length; i++) {
+    if (i === 0) {
+      converted += text[i]?.toUpperCase();
+    } else if (text[i]?.toUpperCase() === text[i]) {
+      converted += ` ${text[i]}`;
+    } else {
+      converted += text[i];
+    }
+  }
+  return converted;
+}

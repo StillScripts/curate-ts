@@ -1,8 +1,8 @@
 import { useQuiz } from "./context/QuizContext";
-import type { FormEvent } from "react";
 import Buttons from "./sections/Buttons";
 import { Form } from "react-final-form";
 import InputOptions from "./sections/InputOptions";
+import ConfirmationValues from "./sections/ConfirmationValues";
 
 const Quiz = ({
   className = "flex max-w-lg flex-col rounded-2xl bg-white/10 p-4 text-white",
@@ -12,13 +12,15 @@ const Quiz = ({
     return null;
   }
 
-  const { dispatch, q, confirmationStage, userInput } = quiz;
+  const { dispatch, q, confirmationStage } = quiz;
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log(e);
-    confirmationStage
-      ? dispatch({ type: "submit" })
-      : dispatch({ type: "next" });
+  const onSubmit = (values: Record<string, string | number>) => {
+    if (confirmationStage) {
+      dispatch({ type: "submit" });
+    } else {
+      dispatch({ type: "handleInput", payload: values });
+      dispatch({ type: "next" });
+    }
   };
 
   return (
@@ -29,15 +31,10 @@ const Quiz = ({
       {/* {q.type === "icon" && <ControlledRadio q={q} />} */}
       <Form
         onSubmit={onSubmit}
-        //validate={validate}
+        //validate={validate} This will block the submission before it hits onSubmit()
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            {confirmationStage ? (
-              <div>{JSON.stringify(userInput)}</div>
-            ) : (
-              <InputOptions />
-            )}
-
+            {confirmationStage ? <ConfirmationValues /> : <InputOptions />}
             <Buttons />
           </form>
         )}
