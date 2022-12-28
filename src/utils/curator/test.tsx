@@ -1,13 +1,9 @@
-
 const Text = () => (
-	<div>
-		<label></label>
-		<input/>
-		<select>
-			
-			
-		</select>
-	</div>
+  <div>
+    <label></label>
+    <input />
+    <select></select>
+  </div>
 )
 
 export default Text

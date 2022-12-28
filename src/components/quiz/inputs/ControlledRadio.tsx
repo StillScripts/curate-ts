@@ -1,12 +1,12 @@
-import type { SVGProps } from "react";
-import { useState } from "react";
-import { RadioGroup } from "@headlessui/react";
+import type { SVGProps } from "react"
+import { useState } from "react"
+import { RadioGroup } from "@headlessui/react"
 //import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
-import type { QIcon } from "../../../types/core";
-import { classNames } from "../../../utils/common";
+import type { QIcon } from "../../../types/core"
+import { classNames } from "../../../utils/common"
 
 export default function ControlledRadio({ q }: { q: QIcon }) {
-  const [selected, setSelected] = useState(q.input[0]);
+  const [selected, setSelected] = useState(q.input[0])
 
   //const { dispatch } = useQuiz();
 
@@ -15,7 +15,7 @@ export default function ControlledRadio({ q }: { q: QIcon }) {
       <div className="mx-auto w-full max-w-md">
         <RadioGroup value={selected} onChange={setSelected}>
           <RadioGroup.Label className="sr-only">{q.question}</RadioGroup.Label>
-          <div className={classNames("grid",  "grid-cols-1 gap-4")}>
+          <div className={classNames("grid", "grid-cols-1 gap-4")}>
             {q.input.map((opt) => (
               <RadioGroup.Option
                 key={opt.key}
@@ -63,7 +63,7 @@ export default function ControlledRadio({ q }: { q: QIcon }) {
         </RadioGroup>
       </div>
     </div>
-  );
+  )
 }
 
 function CheckIcon(props: SVGProps<SVGSVGElement>) {
@@ -78,5 +78,5 @@ function CheckIcon(props: SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-import { RadioGroup } from "@headlessui/react";
+import { RadioGroup } from "@headlessui/react"
 //import { CheckIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import { Field } from "react-final-form";
-import type { QIcon, QImage } from "../../../types/core";
-import { classNames } from "../../../utils/common";
-import { DEFAULT_GRID } from "../context/QuizContext";
+import Image from "next/image"
+import { Field } from "react-final-form"
+import type { QIcon, QImage } from "../../../types/core"
+import { classNames } from "../../../utils/common"
+import { DEFAULT_GRID } from "../context/QuizContext"
 
 interface RadioOptionsProps {
-  q: QIcon | QImage;
-  handleClick: (value: string) => void;
+  q: QIcon | QImage
+  handleClick: (value: string) => void
 }
 const RadioOptions: React.FC<RadioOptionsProps> = ({ q, handleClick }) => {
   return (
@@ -43,7 +43,10 @@ const RadioOptions: React.FC<RadioOptionsProps> = ({ q, handleClick }) => {
                         <>
                           {opt.icon}
 
-                          <RadioGroup.Label as="span">
+                          <RadioGroup.Label
+                            className="mt-3 font-medium"
+                            as="span"
+                          >
                             {opt.label}
                           </RadioGroup.Label>
                         </>
@@ -83,7 +86,7 @@ const RadioOptions: React.FC<RadioOptionsProps> = ({ q, handleClick }) => {
         </div>
       )}
     </Field>
-  );
-};
+  )
+}
 
-export default RadioOptions;
+export default RadioOptions

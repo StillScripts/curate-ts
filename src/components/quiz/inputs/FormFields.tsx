@@ -1,7 +1,7 @@
-import type { QForm } from "../../../types/core";
-import { classNames } from "../../../utils/common";
-import { DEFAULT_GRID } from "../context/QuizContext";
-import { Field } from 'react-final-form'
+import type { QForm } from "../../../types/core"
+import { classNames } from "../../../utils/common"
+import { DEFAULT_GRID } from "../context/QuizContext"
+import { Field } from "react-final-form"
 
 interface FormFieldsProps {
   q: QForm
@@ -36,7 +36,7 @@ const FormFields: React.FC<FormFieldsProps> = ({ q }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FormFields;
+export default FormFields

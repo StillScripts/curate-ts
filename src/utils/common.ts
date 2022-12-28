@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react"
 
 /**
  * Join multiple strings to produce a single string of TailwindCSS classnames
@@ -8,14 +8,14 @@ import { useEffect, useLayoutEffect } from "react";
 export function classNames(
   ...classes: (string | undefined | null | false)[]
 ): string {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 
 /**
  * Provide a safe way to use the layout effect hook with SSR
  */
 export const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
 
 /**
  * Shorten a text block so that it is within a limit
@@ -25,30 +25,30 @@ export const useIsomorphicLayoutEffect =
  */
 export function truncateText(original: string, limit: number): string {
   if (original.length < limit) {
-    return original;
+    return original
   } else {
-    const shortened = original.substring(0, limit).split(" ");
-    shortened.pop();
-    return shortened.join(" ") + "...";
+    const shortened = original.substring(0, limit).split(" ")
+    shortened.pop()
+    return shortened.join(" ") + "..."
   }
 }
 
 /** Typesafe version of Object.keys */
 export const getKeys = Object.keys as <T extends object>(
   obj: T
-) => Array<keyof T>;
+) => Array<keyof T>
 
 /** Convert firstName => First Name */
 export function camelSplit(text: string) {
-  let converted = "";
+  let converted = ""
   for (let i = 0; i < text.length; i++) {
     if (i === 0) {
-      converted += text[i]?.toUpperCase();
+      converted += text[i]?.toUpperCase()
     } else if (text[i]?.toUpperCase() === text[i]) {
-      converted += ` ${text[i]}`;
+      converted += ` ${text[i]}`
     } else {
-      converted += text[i];
+      converted += text[i]
     }
   }
-  return converted;
+  return converted
 }

@@ -1,8 +1,8 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import { QuizProvider } from "../components/quiz/context/QuizContext";
-import Quiz from "../components/quiz/Quiz";
-import { quiz } from "../utils/curator/example";
+import { type NextPage } from "next"
+import Head from "next/head"
+import { QuizProvider } from "../components/quiz/context/QuizContext"
+import Quiz from "../components/quiz/Quiz"
+import { quiz } from "../utils/curator/example"
 
 const Home: NextPage = () => {
   return (
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

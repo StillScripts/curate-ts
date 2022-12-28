@@ -1,41 +1,41 @@
 // Building an example that would work for Textured Art by Kylie
 
-import { AcademicCapIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
-import type { Field, Question, Quiz } from "../../types/core";
+import { AcademicCapIcon, PaintBrushIcon } from "@heroicons/react/24/outline"
+import type { Field, Question, Quiz } from "../../types/core"
 
 const firstName = {
   element: "input",
   label: "First Name",
   key: "firstName",
   props: { placeholder: "Your first name", type: "text", required: true },
-} satisfies Field;
+} satisfies Field
 
 const lastName = {
   element: "input",
   label: "Last Name",
   key: "lastName",
   props: { placeholder: "Your last name", type: "text", required: true },
-} satisfies Field;
+} satisfies Field
 
 const email = {
   element: "input",
   label: "Email Address",
   key: "email",
   props: { placeholder: "Your email", type: "email", required: true },
-} satisfies Field;
+} satisfies Field
 
 const phone = {
   element: "input",
   label: "Phone Number",
   key: "phone",
   props: { placeholder: "Your phone", type: "tel", required: false },
-} satisfies Field;
+} satisfies Field
 
 export const base = {
   type: "form",
   question: "Please enter your contact details",
   input: [firstName, lastName, email, phone],
-} satisfies Question;
+} satisfies Question
 
 export const question2 = {
   key: "design",
@@ -52,7 +52,7 @@ export const question2 = {
       image: { src: "/favicon.ico", alt: "Custom art" },
     },
   ],
-} satisfies Question;
+} satisfies Question
 
 export const question3 = {
   key: "colours",
@@ -69,7 +69,7 @@ export const question3 = {
       image: { src: "/favicon.ico", alt: "Custom art" },
     },
   ],
-} satisfies Question;
+} satisfies Question
 
 export const quiz: Quiz<"custom-art" | "learn-more"> = {
   opener: {
@@ -103,4 +103,4 @@ export const quiz: Quiz<"custom-art" | "learn-more"> = {
     "custom-art": [question2, question3, base],
     "learn-more": [base],
   },
-};
+}

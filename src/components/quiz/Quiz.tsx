@@ -1,27 +1,27 @@
-import { useQuiz } from "./context/QuizContext";
-import Buttons from "./sections/Buttons";
-import { Form } from "react-final-form";
-import InputOptions from "./sections/InputOptions";
-import ConfirmationValues from "./sections/ConfirmationValues";
+import { useQuiz } from "./context/QuizContext"
+import Buttons from "./sections/Buttons"
+import { Form } from "react-final-form"
+import InputOptions from "./sections/InputOptions"
+import ConfirmationValues from "./sections/ConfirmationValues"
 
 const Quiz = ({
   className = "flex max-w-lg flex-col rounded-2xl bg-white/10 p-4 text-white",
 }) => {
-  const quiz = useQuiz();
+  const quiz = useQuiz()
   if (!quiz) {
-    return null;
+    return null
   }
 
-  const { dispatch, q, confirmationStage } = quiz;
+  const { dispatch, q, confirmationStage } = quiz
 
   const onSubmit = (values: Record<string, string | number>) => {
     if (confirmationStage) {
-      dispatch({ type: "submit" });
+      dispatch({ type: "submit" })
     } else {
-      dispatch({ type: "handleInput", payload: values });
-      dispatch({ type: "next" });
+      dispatch({ type: "handleInput", payload: values })
+      dispatch({ type: "next" })
     }
-  };
+  }
 
   return (
     <div className={className}>
@@ -41,7 +41,7 @@ const Quiz = ({
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Quiz;
+export default Quiz
