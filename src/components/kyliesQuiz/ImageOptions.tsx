@@ -2,7 +2,7 @@ import { RadioGroup } from "@headlessui/react";
 import Image from "next/image";
 import type { ImageOption } from "../../types/core";
 import { classNames } from "../../utils/common";
-import { useQuiz } from "./app/QuizContext";
+import { DEFAULT_GRID, useQuiz } from "./app/QuizContext";
 
 interface ImageOptionsProps {
   options: ImageOption[];
@@ -30,7 +30,7 @@ const ImageOptions: React.FC<ImageOptionsProps> = ({
       className="mt-5"
     >
       <RadioGroup.Label className="sr-only">{q?.question}</RadioGroup.Label>
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-2">
+      <div className={classNames("grid", q.gridClasses || DEFAULT_GRID)}>
         {options.map((opt) => (
           <RadioGroup.Option
             key={opt.key}

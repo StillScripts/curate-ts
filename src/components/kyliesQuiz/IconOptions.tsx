@@ -1,7 +1,7 @@
 import { RadioGroup } from "@headlessui/react";
 import type { IconOption } from "../../types/core";
 import { classNames } from "../../utils/common";
-import { useQuiz } from "./app/QuizContext";
+import { DEFAULT_GRID, useQuiz } from "./app/QuizContext";
 
 interface IconOptionsProps {
   options: IconOption[];
@@ -9,7 +9,7 @@ interface IconOptionsProps {
 }
 
 const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
-  const { dispatch, q, userInput } = useQuiz();
+  const { dispatch, q } = useQuiz();
 
   const handleClick = (value: string) => {
     dispatch &&
@@ -21,12 +21,17 @@ const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
 
   return (
     <RadioGroup
-      value={userInput ? userInput[questionKey] : null}
+      //value={userInput ? userInput[questionKey] : ""}
       onChange={handleClick}
       className="mt-5"
     >
       <RadioGroup.Label className="sr-only">{q?.question}</RadioGroup.Label>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div
+        className={classNames(
+          "grid",
+          q.gridClasses || DEFAULT_GRID
+        )}
+      >
         {options.map((opt) => (
           <RadioGroup.Option
             key={opt.key}

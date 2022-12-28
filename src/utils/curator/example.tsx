@@ -3,8 +3,6 @@
 import { AcademicCapIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
 import type { Field, Question, Quiz } from "../../types/core";
 
-type PathKeys = "custom-art" | "learn-more";
-
 const firstName = {
   element: "input",
   label: "First Name",
@@ -71,11 +69,12 @@ export const question3 = {
   ],
 } satisfies Question;
 
-export const quiz: Quiz<PathKeys> = {
+export const quiz: Quiz<"custom-art" | "learn-more"> = {
   opener: {
     key: "interest",
     type: "icon",
     question: "What are you interested in?",
+    gridClasses: "grid-cols-1 gap-3 sm:grid-cols-2",
     input: [
       {
         label: "Learn More About Me",

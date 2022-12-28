@@ -4,11 +4,14 @@ import { createContext, useReducer } from "react";
 import type { Question, Quiz } from "../../../types/core";
 import { quiz } from "../../../utils/curator/example";
 
+export const DEFAULT_GRID = "grid-cols-1 gap-3 sm:grid-cols-2";
+
 export interface QuizState {
   index: number;
   q: Question;
   quiz: Quiz<string>;
   userInput: Record<string, string | number>;
+  confirmationStage: boolean;
 }
 
 export type QuizAction =
@@ -23,7 +26,7 @@ export interface ProviderValues extends QuizState {
 
 const QuizContext = createContext<ProviderValues | undefined>(undefined);
 
-function reducer(state: QuizState, action: QuizAction): QuizState {
+const reducer = (state: QuizState, action: QuizAction): QuizState => {
   const path = state.userInput[quiz.opener.key];
   const questions = path ? state.quiz.paths[path] : undefined;
   switch (action.type) {
@@ -34,6 +37,13 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
       }
       if (state.index === 1) {
         return { ...state, q: state.quiz.opener, index: 0 };
+      }
+      if (state.confirmationStage) {
+        return {
+          ...state,
+          confirmationStage: false,
+          index: state.index - 1,
+        };
       }
       if (!questions) {
         alert("Error, no questions on this path.");
@@ -48,6 +58,13 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
       if (!questions) {
         alert("Error, no questions on this path.");
         return state;
+      }
+      if (state.index >= questions.length) {
+        return {
+          ...state,
+          confirmationStage: true,
+          index: state.index + 1,
+        };
       }
       return {
         ...state,
@@ -65,7 +82,7 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
     default:
       throw new Error();
   }
-}
+};
 
 const validateQuiz = (quiz: Quiz<string>) => {
   const openerKeys = quiz.opener.input.map((opt) => opt.key);
@@ -97,6 +114,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({
     quiz: validateQuiz(quiz),
     userInput: {},
     index: 0,
+    confirmationStage: false,
   });
 
   return (

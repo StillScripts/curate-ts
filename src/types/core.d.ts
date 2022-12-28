@@ -29,16 +29,17 @@ export interface Select extends Opt {
 
 export type Field = Input | Select;
 
-export interface ImageOption<T> extends Opt<T> {
+export interface ImageOption<T = string> extends Opt<T> {
   image: ImageProps;
 }
 
-export interface IconOption<T> extends Opt<T> {
+export interface IconOption<T = string> extends Opt<T> {
   icon: JSX.Element;
 }
 
 export interface QCommon {
   question: string;
+  gridClasses?: string;
   helpText?: string;
 }
 
@@ -62,11 +63,12 @@ export interface QIcon<T = string> extends QCommon {
 export type Question = QForm | QImage | QIcon;
 
 /**
- * The Quiz has an opener which will either be an Image or Icon question,
- * and then it has question paths based on the initial question. 
+ * The Quiz defines all the questions in a quiz. 
+ * It has an opener question, which will either be an Image or Icon question,
+ * and it has question paths which follow on from the initial question. 
  * The generic (T) is the key that is used for the quiz
  */
-export type Quiz<T> = {
+export type Quiz<T extends string> = {
   opener: QImage<T> | QIcon<T>; 
   paths: Record<T, Question[]>;
 };

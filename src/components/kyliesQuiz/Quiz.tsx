@@ -57,7 +57,7 @@ const Buttons = () => {
   );
 };
 
-const Question = ({
+const Quiz = ({
   className = "flex max-w-lg flex-col rounded-xl bg-white/10 p-4 text-white",
 }) => {
   const quiz = useQuiz();
@@ -65,7 +65,7 @@ const Question = ({
     return null;
   }
 
-  const { dispatch, q } = quiz;
+  const { dispatch, q, confirmationStage, userInput } = quiz;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,16 +74,22 @@ const Question = ({
 
   return (
     <div className={className}>
-      <h3 className="text-center text-2xl font-bold">{q.question}</h3>
-      <form onSubmit={handleSubmit}>
-        {/** Answer options */}
-        <Options q={q} />
+      <h3 className="text-center text-2xl font-bold">
+        {confirmationStage ? "Confirm your answers" : q.question}
+      </h3>
+      {confirmationStage ? (
+        <div>{JSON.stringify(userInput)}</div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          {/** Answer options */}
+          <Options q={q} />
 
-        {/** Back and Next buttons */}
-        <Buttons />
-      </form>
+          {/** Back and Next buttons */}
+          <Buttons />
+        </form>
+      )}
     </div>
   );
 };
 
-export default Question;
+export default Quiz;
