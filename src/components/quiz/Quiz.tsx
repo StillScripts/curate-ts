@@ -1,10 +1,11 @@
-import { useQuiz } from "./app/QuizContext";
-import ImageOptions from "./ImageOptions";
-import IconOptions from "./IconOptions";
-import Form from "./FormFields";
+import { useQuiz } from "./context/QuizContext";
+import ImageOptions from "./options/ImageOptions";
+import IconOptions from "./options/IconOptions";
+import Form from "./options/FormFields";
 import { classNames } from "../../utils/common";
 import type { Question as QType } from "../../types/core";
 import type { FormEvent } from "react";
+import ControlledRadio from "./options/ControlledRadio";
 
 /** The input options for a given question */
 const Options = ({ q }: { q: QType }) => {
@@ -77,6 +78,7 @@ const Quiz = ({
       <h3 className="text-center text-2xl font-bold">
         {confirmationStage ? "Confirm your answers" : q.question}
       </h3>
+      {q.type === "icon" && <ControlledRadio q={q} />}
       {confirmationStage ? (
         <div>{JSON.stringify(userInput)}</div>
       ) : (

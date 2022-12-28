@@ -1,6 +1,6 @@
-import type { Field } from "../../types/core";
-import { classNames } from "../../utils/common";
-import { DEFAULT_GRID, useQuiz } from "./app/QuizContext";
+import type { Field } from "../../../types/core";
+import { classNames } from "../../../utils/common";
+import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
 
 interface FormProps {
   fields: Field[];

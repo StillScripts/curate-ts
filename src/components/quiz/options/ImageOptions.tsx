@@ -1,8 +1,8 @@
 import { RadioGroup } from "@headlessui/react";
 import Image from "next/image";
-import type { ImageOption } from "../../types/core";
-import { classNames } from "../../utils/common";
-import { DEFAULT_GRID, useQuiz } from "./app/QuizContext";
+import type { ImageOption } from "../../../types/core";
+import { classNames } from "../../../utils/common";
+import { DEFAULT_GRID, useQuiz } from  "../context/QuizContext";
 
 interface ImageOptionsProps {
   options: ImageOption[];

@@ -1,7 +1,8 @@
 import { RadioGroup } from "@headlessui/react";
-import type { IconOption } from "../../types/core";
-import { classNames } from "../../utils/common";
-import { DEFAULT_GRID, useQuiz } from "./app/QuizContext";
+import { CheckIcon } from "@heroicons/react/24/outline";
+import type { IconOption } from "../../../types/core";
+import { classNames } from "../../../utils/common";
+import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
 
 interface IconOptionsProps {
   options: IconOption[];
@@ -26,12 +27,7 @@ const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
       className="mt-5"
     >
       <RadioGroup.Label className="sr-only">{q?.question}</RadioGroup.Label>
-      <div
-        className={classNames(
-          "grid",
-          q.gridClasses || DEFAULT_GRID
-        )}
-      >
+      <div className={classNames("grid", q.gridClasses || DEFAULT_GRID)}>
         {options.map((opt) => (
           <RadioGroup.Option
             key={opt.key}
@@ -45,8 +41,16 @@ const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
               )
             }
           >
-            {opt.icon}
-            <RadioGroup.Label as="span">{opt.label}</RadioGroup.Label>
+            {({ checked }) => (
+              <>
+                {opt.icon}
+                <RadioGroup.Label as="span">{opt.label}</RadioGroup.Label>
+                {checked &&
+                <div className="shrink-0 text-white">
+                  <CheckIcon className="h-6 w-6" />
+                </div>}
+              </>
+            )}
           </RadioGroup.Option>
         ))}
       </div>
