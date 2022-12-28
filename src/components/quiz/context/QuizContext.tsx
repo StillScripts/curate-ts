@@ -12,13 +12,15 @@ export interface QuizState {
   quiz: Quiz<string>;
   userInput: Record<string, string | number>;
   confirmationStage: boolean;
+  memo: Record<number, string[]>;
 }
 
 export type QuizAction =
   | { type: "back" } // Go back to previous question
   | { type: "next" } // Go to next question
   | { type: "submit" } // Send the userInput data to the server
-  | { type: "handleInput"; payload: Record<string, string | number> }; // Update userInput
+  | { type: "handleInput"; payload: Record<string, string | number> } // Update userInput
+  | { type: "edit"; payload: number }; // Change an existing answer
 
 export interface ProviderValues extends QuizState {
   dispatch: Dispatch<QuizAction>;
@@ -81,6 +83,20 @@ const reducer = (state: QuizState, action: QuizAction): QuizState => {
           ...state.userInput,
           ...action.payload,
         },
+        memo: {
+          ...state.memo,
+          [state.index]:
+            state.q.type === "form"
+              ? state.q.input.map((opt) => opt.key)
+              : [state.q.key],
+        },
+      };
+    case "edit":
+      alert(action.payload);
+      return {
+        ...state,
+        index: action.payload,
+        confirmationStage: false,
       };
     default:
       throw new Error();
@@ -118,6 +134,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({
     userInput: {},
     index: 0,
     confirmationStage: false,
+    memo: {},
   });
 
   return (

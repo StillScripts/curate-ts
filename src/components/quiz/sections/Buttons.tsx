@@ -45,7 +45,7 @@ const Buttons = () => {
             "inline-flex items-center rounded-md border border-transparent px-4 py-2 text-sm font-medium ",
             disabled
               ? "bg-gray-100 text-gray-500 opacity-90"
-              : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+              : "bg-gray-100 text-indigo-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
             q.oneClick && "hidden"
           )}
         >

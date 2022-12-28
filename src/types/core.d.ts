@@ -72,4 +72,5 @@ export type Question = QForm | QImage | QIcon;
 export type Quiz<T extends string> = {
   opener: QImage<T> | QIcon<T>; 
   paths: Record<T, Question[]>;
+  confirmationHeading?: string
 };

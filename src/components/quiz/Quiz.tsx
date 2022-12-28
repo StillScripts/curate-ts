@@ -26,9 +26,10 @@ const Quiz = ({
   return (
     <div className={className}>
       <h3 className="text-center text-2xl font-bold">
-        {confirmationStage ? "Confirm your answers" : q.question}
+        {confirmationStage
+          ? quiz.quiz.confirmationHeading || "Confirm your answers"
+          : q.question}
       </h3>
-      {/* {q.type === "icon" && <ControlledRadio q={q} />} */}
       <Form
         onSubmit={onSubmit}
         //validate={validate} This will block the submission before it hits onSubmit()
