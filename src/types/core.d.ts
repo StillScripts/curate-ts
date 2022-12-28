@@ -41,6 +41,7 @@ export interface QCommon {
   question: string;
   gridClasses?: string;
   helpText?: string;
+  oneClick?: boolean
 }
 
 export interface QForm extends QCommon {

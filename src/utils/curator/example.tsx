@@ -41,6 +41,7 @@ export const question2 = {
   key: "design",
   type: "image",
   question: "What design do you like best?",
+  oneClick: true,
   input: [
     {
       key: "learn-more",
@@ -57,6 +58,7 @@ export const question3 = {
   key: "colours",
   type: "image",
   question: "What colours do you like best?",
+  oneClick: true,
   input: [
     {
       key: "learn-more",
@@ -75,6 +77,7 @@ export const quiz: Quiz<"custom-art" | "learn-more"> = {
     type: "icon",
     question: "What are you interested in?",
     gridClasses: "grid-cols-1 gap-3 sm:grid-cols-2",
+    oneClick: true,
     input: [
       {
         label: "Learn More About Me",

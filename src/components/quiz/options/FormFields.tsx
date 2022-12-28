@@ -1,12 +1,13 @@
-import type { Field } from "../../../types/core";
+import type { Field as FieldType } from "../../../types/core";
 import { classNames } from "../../../utils/common";
 import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
+import { Field } from 'react-final-form'
 
-interface FormProps {
-  fields: Field[];
+interface FormFieldsProps {
+  fields: FieldType[];
 }
 
-const Form: React.FC<FormProps> = ({ fields }) => {
+const FormFields: React.FC<FormFieldsProps> = ({ fields }) => {
   const { q } = useQuiz();
   return (
     <div className="mt-5">
@@ -21,10 +22,12 @@ const Form: React.FC<FormProps> = ({ fields }) => {
                 {opt.label}
               </label>
               <div className="mt-1">
-                <input
-                  {...opt.props}
+                <Field
+                  component="input"
+                  name={opt.key}
                   id={opt.key}
                   className="block w-full rounded-md border-gray-300 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  {...opt.props}
                 />
               </div>
             </div>
@@ -37,4 +40,4 @@ const Form: React.FC<FormProps> = ({ fields }) => {
   );
 };
 
-export default Form;
+export default FormFields;

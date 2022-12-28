@@ -6,11 +6,25 @@ import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
 
 interface IconOptionsProps {
   options: IconOption[];
-  handleClick: (value: string) => void;
+  questionKey: string;
 }
 
-const IconOptions: React.FC<IconOptionsProps> = ({ options, handleClick }) => {
-  const { q } = useQuiz();
+const IconOptions: React.FC<IconOptionsProps> = ({ options, questionKey }) => {
+  const { dispatch, q } = useQuiz();
+
+  const handleClick = (value: string) => {
+    if (dispatch) {
+      dispatch({
+        type: "handleInput",
+        payload: { [questionKey]: value },
+      });
+      if (q.oneClick) {
+        dispatch({
+          type: "next",
+        });
+      }
+    }
+  };
 
   return (
     <RadioGroup

@@ -6,32 +6,38 @@ import { DEFAULT_GRID, useQuiz } from  "../context/QuizContext";
 
 interface ImageOptionsProps {
   options: ImageOption[];
-  handleClick: (value: string) => void;
+  questionKey: string;
 }
 
 const ImageOptions: React.FC<ImageOptionsProps> = ({
   options,
-  handleClick
+  questionKey,
 }) => {
-  const { q, userInput } = useQuiz();
+  const { dispatch, q, userInput } = useQuiz();
+
+  const handleClick = (value: string) => {
+    dispatch &&
+      dispatch({
+        type: "handleInput",
+        payload: { [questionKey]: value },
+      });
+  };
 
   return (
-    <RadioGroup
-      //value={userInput ? userInput[questionKey] : null}
-      onChange={handleClick}
+    <div
       className="mt-5"
     >
-      <RadioGroup.Label className="sr-only">{q?.question}</RadioGroup.Label>
+      <p className="sr-only">{q?.question}</p>
       <div className={classNames("grid", q.gridClasses || DEFAULT_GRID)}>
         {options.map((opt) => (
-          <RadioGroup.Option
+          <div
             key={opt.key}
-            value={opt.key}
-            className={({ active, checked }) =>
+            onClick={()=>handleClick(opt.key)}
+            className={
               classNames(
-                "cursor-pointer focus:outline-none",
-                active ? "ring-2 ring-indigo-500" : "",
-                checked ? "border-white bg-opacity-20" : "",
+                "cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                //active ? "ring-2 ring-indigo-500" : "",
+                //checked ? "border-white bg-opacity-20" : "",
                 "flex flex-col items-center rounded border-2 border-transparent bg-white bg-opacity-5 p-2 shadow-sm hover:bg-opacity-20"
               )
             }
@@ -42,11 +48,11 @@ const ImageOptions: React.FC<ImageOptionsProps> = ({
               width={opt.image.width || 200}
               height={opt.image.height || 200}
             />
-            <RadioGroup.Label as="span">{opt.label}</RadioGroup.Label>
-          </RadioGroup.Option>
+            <span>{opt.label}</span>
+          </div>
         ))}
       </div>
-    </RadioGroup>
+    </div>
   );
 };
 

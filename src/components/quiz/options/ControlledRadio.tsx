@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
+//import { DEFAULT_GRID, useQuiz } from "../context/QuizContext";
 import type { QIcon } from "../../../types/core";
 import { classNames } from "../../../utils/common";
 
